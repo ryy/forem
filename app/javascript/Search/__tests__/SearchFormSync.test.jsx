@@ -16,12 +16,6 @@ describe('<SearchFormSync />', () => {
   beforeEach(() => {
     setWindowLocation(`https://locahost:3000/`);
 
-    // The body is being cleared out because we are using it as the root element for the tests.
-    // Typically using the document.body as the root for rendering of components in tests is not necessary,
-    // but in the case of this component, it renders a portal, and this seemed to be the only way to get these
-    // tests to render portals.
-    document.body.innerHTML = '';
-
     global.InstantClick = jest.fn(() => ({
       on: jest.fn(),
       off: jest.fn(),
