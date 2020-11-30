@@ -31,9 +31,12 @@ describe('<SearchFormSync />', () => {
   });
 
   it('should synchronize search forms', async () => {
-    const { findByLabelText, findAllByLabelText } = render(<SearchFormSync />, {
-      container: document.body,
-    });
+    // This part of the DOM would be rendered in the search results from the server side.
+    // See search.html.erb.
+    document.body.innerHTML +=
+      '<div id="mobile-search-container"><form></form></div>';
+
+    const { findByLabelText, findAllByLabelText } = render(<SearchFormSync />);
 
     // Only one input is rendered at this point because the synchSearchForms custom event is what
     // tells us that there is a new search form to sync with the existing one.
@@ -47,11 +50,6 @@ describe('<SearchFormSync />', () => {
 
     // simulates a search result returned which contains the server side rendered search form for mobile only.
     setWindowLocation(`https://locahost:3000/search?q=${searchTerm}`);
-
-    // This part of the DOM would be rendered in the search results from the server side.
-    // See search.html.erb.
-    document.body.innerHTML =
-      '<div id="mobile-search-container"><form></form></div>';
 
     fireEvent(
       window,
@@ -67,6 +65,11 @@ describe('<SearchFormSync />', () => {
   });
 
   it('should synchronize search forms on a subsequent search', async () => {
+    // This part of the DOM would be rendered in the search results from the server side.
+    // See search.html.erb.
+    document.body.innerHTML =
+      '<div id="mobile-search-container"><form></form></div>';
+
     const { findByLabelText, findAllByLabelText } = render(<SearchFormSync />, {
       container: document.body,
     });
@@ -83,11 +86,6 @@ describe('<SearchFormSync />', () => {
 
     // simulates a search result returned which contains the server side rendered search form for mobile only.
     setWindowLocation(`https://locahost:3000/search?q=${searchTerm}`);
-
-    // This part of the DOM would be rendered in the search results from the server side.
-    // See search.html.erb.
-    document.body.innerHTML =
-      '<div id="mobile-search-container"><form></form></div>';
 
     fireEvent(
       window,
@@ -105,11 +103,6 @@ describe('<SearchFormSync />', () => {
 
     // simulates a search result returned which contains the server side rendered search form for mobile only.
     setWindowLocation(`https://locahost:3000/search?q=${searchTerm2}`);
-
-    // This part of the DOM would be rendered in the search results from the server side.
-    // See search.html.erb.
-    document.body.innerHTML =
-      '<div id="mobile-search-container"><form></form></div>';
 
     fireEvent(
       window,
